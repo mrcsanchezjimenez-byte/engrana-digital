@@ -17,7 +17,7 @@ onScroll();
 
 // Aparición suave al entrar en pantalla (escalonada dentro de cada grupo)
 if (!quieto && "IntersectionObserver" in window) {
-  const sel = ".section h2, .section .lead, .card, .plan, .case, .timeline li, .steps li, .service-row, .faq details, .compare-col, .pack, .newsletter, .related";
+  const sel = ".section h2, .section .lead, .demo, .card, .plan, .case, .timeline li, .steps li, .service-row, .faq details, .compare-col, .pack, .newsletter, .related";
   const io = new IntersectionObserver((entries) => {
     for (const e of entries) if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
   }, { rootMargin: "0px 0px -8% 0px" });
