@@ -54,7 +54,7 @@ if (form) {
       <ul class="diag-bars">${Object.keys(areas).map((a) => `<li><span>${areas[a].nombre}</span><i><b style="--w:${Math.round((pts[a] / max[a]) * 100)}%"></b></i><em>${Math.round((pts[a] / max[a]) * 100)}%</em></li>`).join("")}</ul>
       ${debiles.length ? `<h3>Por dónde empezaría yo</h3><div class="diag-recs">${debiles.map((a) => `<a class="card" href="${B}${areas[a].servicio[0]}"><p class="case-sector">${areas[a].nombre}</p><p>${areas[a].consejo}</p><span class="more">${areas[a].servicio[1]} →</span></a>`).join("")}</div>` : ""}
       <div class="hero-actions">
-        <a class="btn" href="${B}/contacto/?asunto=auditoria">Comentar mi resultado (gratis)</a>
+        <a class="btn" href="${B}/contacto/?asunto=auditoria&diag=${nota}&flojas=${encodeURIComponent(debiles.map((a) => areas[a].nombre).join(", "))}">Comentar mi resultado (gratis)</a>
         <a class="btn btn-ghost" target="_blank" rel="noopener" href="https://wa.me/${form.dataset.tel}?text=${encodeURIComponent(`Hola Marcos, he hecho el autodiagnóstico y he sacado ${nota}/100. Áreas más flojas: ${debiles.map((a) => areas[a].nombre).join(" y ") || "ninguna"}. ¿Lo hablamos?`)}">Enviarlo por WhatsApp</a>
       </div>`;
     out.hidden = false;
