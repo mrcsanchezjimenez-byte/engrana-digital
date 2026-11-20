@@ -407,7 +407,7 @@ article > .section{padding-top:56px}
 .diag fieldset:has(input:checked){border-color:#f3c2ad}
 .diag fieldset.missing{border-color:#e2551f;box-shadow:0 0 0 4px rgba(242,107,56,.15)}
 .diag legend{float:left;width:100%;font:600 1.08rem/1.4 var(--head);color:var(--ink);letter-spacing:-.01em;margin-bottom:16px;padding:0}
-.diag-n{display:inline-grid;place-items:center;width:34px;height:34px;border-radius:10px;background:var(--night);color:#fff;font-size:.8rem;margin-right:12px;vertical-align:middle}
+.diag-n{display:grid;place-items:center;width:34px;height:34px;border-radius:10px;background:var(--night);color:#fff;font-size:.8rem;margin-bottom:20px}
 .diag-area{display:block;font:600 .7rem var(--sans);text-transform:uppercase;letter-spacing:.12em;color:var(--accent-2);margin-bottom:6px}
 .diag-opts{clear:both;display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
 @media (max-width:640px){.diag-opts{grid-template-columns:1fr}}
@@ -751,7 +751,12 @@ nav ul{gap:22px}
 /* bloques de servicios (portada y /servicios/) */
 .srv-blocks .card h3 a{color:inherit;text-decoration:none}
 .srv-blocks .card h3 a:hover{color:var(--accent-2)}
-.srv-items{list-style:none;padding:0;margin:auto 0 0;border-top:1px solid var(--line)}
+/* Cada tarjeta comparte filas con sus vecinas (subgrid): icono, título, texto y lista
+   empiezan a la misma altura en todas. La etiqueta "Nuevo" va en la esquina para no empujar nada. */
+.srv-blocks .card{display:grid;grid-row:span 4;grid-template-rows:subgrid;row-gap:0;align-content:start}
+.srv-blocks .card > *{min-width:0}
+.srv-blocks .card .tag{position:absolute;top:24px;right:24px;margin:0}
+.srv-items{list-style:none;padding:0;margin:1.1rem 0 0;border-top:1px solid var(--line);align-self:start}
 .srv-items li{display:flex;justify-content:space-between;align-items:baseline;gap:10px;padding:9px 0;border-bottom:1px solid var(--line);font-size:.92rem}
 .srv-items li:last-child{border-bottom:0}
 .srv-items a{color:var(--ink);font-weight:600;text-decoration:none}
@@ -770,10 +775,16 @@ nav ul{gap:22px}
 @media (max-width:700px){body:has(#form-contacto) .wa-float{display:none}}
 
 /* ------------------------------------------------------------ iconos y apoyos visuales */
-.ico{display:inline-grid;place-items:center;width:28px;height:28px;color:var(--accent-2);flex:none}
-.ico svg{width:100%;height:100%}
-.ico-lg{width:52px;height:52px;padding:12px;border-radius:14px;background:linear-gradient(135deg,#fff3ec,#ffe2d3);margin-bottom:16px;box-shadow:inset 0 0 0 1px rgba(242,107,56,.18);transition:transform .35s var(--ease)}
-.card:hover .ico-lg,.ia-card:hover .ico-lg{transform:rotate(-6deg) scale(1.06)}
+.ico{display:inline-grid;place-items:center;width:38px;height:38px;flex:none}
+.ico svg{width:100%;height:100%;overflow:visible}
+.ico .l{fill:none;stroke:var(--ink);stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.ico .b{fill:#ffcdb5;transition:transform .45s var(--ease)}
+.ico .a{fill:var(--accent)}
+.ico .la{fill:none;stroke:var(--accent);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.ico .w{fill:none;stroke:#fff;stroke-width:2.3;stroke-linecap:round;stroke-linejoin:round}
+.ico circle.w{fill:#fff;stroke:none}
+.ico-lg{width:66px;height:66px;margin-bottom:18px}
+.card:hover .ico .b,.ia-card:hover .ico .b,.flujo li:hover .ico .b{transform:translate(-3px,-3px)}
 .ia-card .ia-n{margin-bottom:6px}
 .ia-principios li{display:flex;align-items:center;gap:12px;padding:16px 18px;border:1px solid var(--line);border-top:1px solid var(--line);border-radius:14px;background:#fff}
 .ia-principios strong{display:inline;margin:0}
@@ -791,7 +802,8 @@ nav ul{gap:22px}
 .flujo{list-style:none;padding:0;margin:1.6rem 0 0;display:grid;grid-template-columns:repeat(var(--n,5),1fr);gap:10px;counter-reset:f;position:relative}
 .flujo::before{content:"";position:absolute;left:10%;right:10%;top:26px;height:2px;background:repeating-linear-gradient(90deg,#f3c2ad 0 6px,transparent 6px 12px)}
 .flujo li{counter-increment:f;position:relative;display:flex;flex-direction:column;align-items:center;text-align:center;font-size:.9rem}
-.flujo .ico-lg{background:#fff;margin-bottom:10px;position:relative}
+.flujo .ico-lg{background:#fff;border-radius:50%;padding:7px;box-shadow:0 0 0 6px #fff;margin-bottom:12px;position:relative}
+.alt .flujo .ico-lg{box-shadow:0 0 0 6px var(--bg-alt)}
 .flujo strong{font:600 .92rem/1.3 var(--head)}
 .flujo strong::before{content:counter(f,decimal-leading-zero);display:block;font:600 .72rem var(--head);color:var(--accent-2);letter-spacing:.08em;margin-bottom:2px}
 @media (max-width:560px){.flujo{grid-template-columns:1fr;gap:4px}.flujo::before{display:none}.flujo li{flex-direction:row;gap:14px;text-align:left}.flujo .ico-lg{margin:0}}
