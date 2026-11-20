@@ -8,7 +8,11 @@ btn?.addEventListener("click", () => {
   const open = menu.classList.toggle("open");
   btn.setAttribute("aria-expanded", open);
   btn.textContent = open ? "Cerrar" : "Menú";
-  document.body.classList.toggle("menu-abierto", open);
+  document.documentElement.classList.toggle("menu-abierto", open);
+});
+// Al tocar un enlace del menú abierto, se cierra al momento
+menu?.addEventListener("click", (e) => {
+  if (e.target.closest("a") && menu.classList.contains("open")) btn.click();
 });
 // Desplegables del menú (clic y teclado; en escritorio también se abren al pasar el ratón)
 const subs = document.querySelectorAll(".sub-btn");
@@ -96,6 +100,15 @@ document.querySelectorAll(".news-form[data-mailto]").forEach((f) => {
     if (!email.checkValidity()) { email.reportValidity(); return; }
     cargando(f.querySelector("button"), "Abriendo tu correo…");
     location.href = `mailto:${f.dataset.mailto}?subject=${encodeURIComponent("Alta en la newsletter Engranajes")}&body=${encodeURIComponent(`Hola, quiero recibir la newsletter Engranajes en este correo: ${email.value}`)}`;
+    // Por si el visitante no tiene programa de correo: le decimos cómo terminar el alta
+    let ok = f.parentElement.querySelector(".news-ok");
+    if (!ok) {
+      ok = document.createElement("p");
+      ok.className = "news-ok";
+      ok.setAttribute("role", "status");
+      f.after(ok);
+    }
+    ok.innerHTML = `Se ha abierto tu correo con el alta preparada: solo falta pulsar <strong>Enviar</strong>. Si no se ha abierto, escríbenos a <a href="mailto:${f.dataset.mailto}">${f.dataset.mailto}</a> con el asunto «Alta en Engranajes».`;
   });
 });
 
@@ -131,10 +144,13 @@ if (form) {
   form.addEventListener("submit", (e) => {
     e.preventDefault();
     const msg = form.querySelector(".form-msg");
+    form.querySelector(".form-ok")?.remove();
     if (!form.checkValidity()) {
-      const falta = form.querySelector(":invalid");
-      msg.textContent = "Falta algo: a qué te dedicas, qué te frena, tu nombre, cómo contactarte y aceptar la privacidad.";
-      falta?.focus();
+      const nombres = { negocio: "a qué se dedica tu negocio", freno: "qué te frena", nombre: "tu nombre", contacto: "un correo o teléfono", privacidad: "aceptar la política de privacidad" };
+      const faltan = [...form.querySelectorAll(":invalid")].map((el) => nombres[el.name]).filter(Boolean);
+      const lista = faltan.length > 1 ? `${faltan.slice(0, -1).join(", ")} y ${faltan.at(-1)}` : faltan[0];
+      msg.textContent = `Para poder enviarlo, falta ${lista}.`;
+      form.querySelector(":invalid")?.focus();
       return;
     }
     msg.textContent = "";
@@ -154,11 +170,27 @@ if (form) {
     ].filter(Boolean);
     const texto = `Hola, quiero engranar mi empresa y me gustaría tener la llamada gratuita. Os dejo el cuestionario:\n\n${lineas.join("\n")}\n\n— ${f.nombre.value}\nContacto: ${f.contacto.value}`;
     cargando(e.submitter, via === "whatsapp" ? "Abriendo WhatsApp…" : "Preparando tu mensaje…");
+    const urlWa = `https://wa.me/${form.dataset.tel}?text=${encodeURIComponent(texto)}`;
     if (via === "whatsapp") {
-      window.open(`https://wa.me/${form.dataset.tel}?text=${encodeURIComponent(texto)}`, "_blank", "noopener");
+      window.open(urlWa, "_blank", "noopener");
     } else {
       location.href = `mailto:${form.dataset.email}?subject=${encodeURIComponent("Llamada: " + tema + " · " + f.nombre.value)}&body=${encodeURIComponent(texto)}`;
     }
+    // Confirmación y plan B: el mensaje queda a la vista para copiarlo si no se abrió el correo o WhatsApp
+    const ok = document.createElement("div");
+    ok.className = "form-ok";
+    ok.setAttribute("role", "status");
+    ok.innerHTML = `<p><strong>${via === "whatsapp" ? "Se ha abierto WhatsApp" : "Se ha abierto tu programa de correo"} con el mensaje preparado.</strong> Solo falta pulsar <strong>Enviar</strong>. Te respondemos en menos de 24 horas laborables.</p>
+      <p>¿No se ha abierto? Copia el mensaje y envíalo a <a href="mailto:${form.dataset.email}">${form.dataset.email}</a> o <a href="${urlWa}" target="_blank" rel="noopener">por WhatsApp</a>.</p>
+      <textarea readonly rows="6" aria-label="Tu mensaje"></textarea>
+      <button type="button" class="btn btn-ghost btn-copiar">Copiar mensaje</button>`;
+    ok.querySelector("textarea").value = texto;
+    ok.querySelector(".btn-copiar").addEventListener("click", async (ev) => {
+      const ta = ok.querySelector("textarea");
+      try { await navigator.clipboard.writeText(texto); } catch { ta.select(); document.execCommand("copy"); }
+      ev.target.textContent = "Mensaje copiado ✓";
+    });
+    msg.after(ok);
   });
 }
 }

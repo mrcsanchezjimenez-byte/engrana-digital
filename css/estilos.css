@@ -71,7 +71,7 @@ nav .sub a:hover,nav .sub a[aria-current]{background:rgba(255,255,255,.06)}
 @media (max-width:960px){
   .menu-btn{display:block}
   #menu{position:absolute;top:72px;left:0;right:0;background:var(--night);border-bottom:1px solid var(--night-line);display:none;max-height:calc(100dvh - 72px);overflow-y:auto;overscroll-behavior:contain}
-  #menu.open{display:block;animation:drop .25s var(--ease)}
+  #menu.open{display:block;animation:drop .16s var(--ease)}
   #menu>ul{flex-direction:column;align-items:stretch;padding:8px 20px 24px;gap:0}
   #menu>ul>li{border-bottom:1px solid var(--night-line)}
   #menu>ul>li.nav-cta{border:0}
@@ -86,7 +86,7 @@ nav .sub a:hover,nav .sub a[aria-current]{background:rgba(255,255,255,.06)}
   nav .sub a:hover,nav .sub a[aria-current]{background:none}
   nav .sub a[aria-current] b{color:var(--accent)}
   .sub small{font-size:.78rem}
-  body.menu-abierto{overflow:hidden}
+  html.menu-abierto{overflow:hidden}
 }
 @keyframes drop{from{opacity:0;transform:translateY(-8px)}}
 
@@ -173,7 +173,7 @@ nav .btn,nav .btn:hover{color:#fff}
 .float{position:absolute;background:rgba(13,22,41,.85);border:1px solid rgba(255,255,255,.14);backdrop-filter:blur(8px);border-radius:14px;padding:10px 14px;font-size:.78rem;color:#c3ccdb;box-shadow:0 18px 40px -16px rgba(0,0,0,.6);animation:float 6s ease-in-out infinite}
 .float b{color:#fff;font:600 1rem var(--head);margin-right:4px}
 .float.f1{top:-22px;right:-10px}
-.float.f2{bottom:-18px;left:-22px;animation-delay:-3s}
+.float.f2{bottom:-40px;left:-22px;animation-delay:-3s}
 .float.f2 b{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
 @keyframes float{50%{transform:translateY(-10px)}}
 .toast{position:absolute;bottom:-26px;right:24px;display:flex;align-items:center;gap:10px;background:#fff;color:var(--ink);border-radius:14px;padding:11px 16px;font-size:.82rem;font-weight:500;box-shadow:0 20px 40px -12px rgba(0,0,0,.5);animation:toast 7s 1.5s var(--ease) infinite;opacity:0}
@@ -598,6 +598,8 @@ nav .sub a:hover,nav .sub a[aria-current]{background:var(--soft)}
   #menu{background:#fff;border-bottom:1px solid var(--line)}
   #menu>ul>li{border-bottom:1px solid var(--line)}
   nav .sub a[aria-current] b{color:var(--accent-2)}
+  .sub{background:none;border:0;box-shadow:none}
+  nav .sub a:hover,nav .sub a[aria-current]{background:none}
 }
 
 /* cabeceras de página */
@@ -756,3 +758,42 @@ nav ul{gap:22px}
 .srv-items a:hover{color:var(--accent-2)}
 .srv-items small{color:var(--muted);white-space:nowrap;font-size:.8rem}
 .auto-grid .card{scroll-margin-top:100px}
+
+/* Confirmación tras enviar (formulario de contacto y newsletter) */
+.form-ok{background:#effaf6;border:1px solid #bfe8d9;border-radius:14px;padding:16px 18px;color:var(--ink);font-size:.92rem}
+.form-ok p{margin:0 0 .6em}
+.form-ok a{color:var(--accent-2);text-decoration:underline}
+.form-ok textarea{width:100%;font:inherit;font-size:.85rem;margin:.4em 0 .8em;background:#fff;resize:vertical}
+.news-ok{font-size:.86rem;color:var(--ink);background:#effaf6;border:1px solid #bfe8d9;border-radius:12px;padding:10px 14px;margin-top:12px!important}
+.news-ok a{color:var(--accent-2);text-decoration:underline}
+/* En móvil, el botón flotante de WhatsApp no tapa el cuestionario (ya tiene su propio botón de WhatsApp) */
+@media (max-width:700px){body:has(#form-contacto) .wa-float{display:none}}
+
+/* ------------------------------------------------------------ iconos y apoyos visuales */
+.ico{display:inline-grid;place-items:center;width:28px;height:28px;color:var(--accent-2);flex:none}
+.ico svg{width:100%;height:100%}
+.ico-lg{width:52px;height:52px;padding:12px;border-radius:14px;background:linear-gradient(135deg,#fff3ec,#ffe2d3);margin-bottom:16px;box-shadow:inset 0 0 0 1px rgba(242,107,56,.18);transition:transform .35s var(--ease)}
+.card:hover .ico-lg,.ia-card:hover .ico-lg{transform:rotate(-6deg) scale(1.06)}
+.ia-card .ia-n{margin-bottom:6px}
+.ia-principios li{display:flex;align-items:center;gap:12px;padding:16px 18px;border:1px solid var(--line);border-top:1px solid var(--line);border-radius:14px;background:#fff}
+.ia-principios strong{display:inline;margin:0}
+/* Casos de la portada con captura */
+.case.con-foto{display:flex;flex-direction:column;padding:0;overflow:hidden;text-decoration:none;color:var(--text)}
+.case.con-foto>:not(figure){padding:0 24px}
+.case.con-foto .case-sector{margin-top:20px}
+.case.con-foto h3{margin-bottom:.2em}
+.case.con-foto p:last-child{padding-bottom:22px;margin:0}
+.case-foto{position:relative;margin:0;aspect-ratio:16/10;overflow:hidden;background:var(--night);border-bottom:1px solid var(--line)}
+.case-foto .shot-img{height:100%}
+.case-foto img{width:100%;height:100%;object-fit:cover;object-position:top left;transition:transform .8s var(--ease)}
+.case.con-foto:hover .case-foto img{transform:scale(1.04)}
+/* Proceso en iconos (portada) */
+.flujo{list-style:none;padding:0;margin:1.6rem 0 0;display:grid;grid-template-columns:repeat(var(--n,5),1fr);gap:10px;counter-reset:f;position:relative}
+.flujo::before{content:"";position:absolute;left:10%;right:10%;top:26px;height:2px;background:repeating-linear-gradient(90deg,#f3c2ad 0 6px,transparent 6px 12px)}
+.flujo li{counter-increment:f;position:relative;display:flex;flex-direction:column;align-items:center;text-align:center;font-size:.9rem}
+.flujo .ico-lg{background:#fff;margin-bottom:10px;position:relative}
+.flujo strong{font:600 .92rem/1.3 var(--head)}
+.flujo strong::before{content:counter(f,decimal-leading-zero);display:block;font:600 .72rem var(--head);color:var(--accent-2);letter-spacing:.08em;margin-bottom:2px}
+@media (max-width:560px){.flujo{grid-template-columns:1fr;gap:4px}.flujo::before{display:none}.flujo li{flex-direction:row;gap:14px;text-align:left}.flujo .ico-lg{margin:0}}
+.case-foto img[src*="movil"]{object-fit:contain;object-position:center;padding:12px 0}
+.split .flujo{margin-top:0}
