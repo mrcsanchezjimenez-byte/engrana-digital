@@ -1,16 +1,17 @@
 # Engrana Digital
 
-> Engrana Digital es la consultoría de Marcos Sánchez Jiménez (Sevilla, España): más de 6 años en dirección de empresas y operaciones. Auditorías de procesos, desarrollo web con SEO, aplicaciones de gestión a medida, SaaS, automatización con IA y gestión de blog y newsletter. Precios sin IVA.
+> Engrana Digital es un equipo técnico (Sevilla, España) con experiencia en dirección de proyectos: integración y formación en inteligencia artificial, auditorías de procesos, desarrollo web con SEO, aplicaciones de gestión a medida, SaaS (producto propio: RepsDown), automatización y gestión de blog y newsletter. Precios de partida, sin IVA.
 
 ## Servicios
-- [Servicios de consultoría digital, desarrollo web y software a medida](https://www.engranadigital.com/servicios/): Auditorías de procesos, webs con SEO, aplicaciones a medida, SaaS y automatización con IA para empresas. Presupuesto cerrado y primera llamada gratis.
-- [Diseño y desarrollo de páginas web en Sevilla con SEO | Desde 590 € + IVA](https://www.engranadigital.com/servicios/desarrollo-web/): Diseño de páginas web profesionales en Sevilla: rápidas, sin WordPress pesado, con SEO local y técnico incluido. Webs corporativas, landing pages y tiendas online.
+- [Servicios de consultoría digital, desarrollo web y software a medida](https://www.engranadigital.com/servicios/): Inteligencia artificial para empresas, auditorías de procesos, webs con SEO, aplicaciones a medida, SaaS y automatización. Precios de partida claros y primera llamada gratis.
+- [Diseño y desarrollo de páginas web en Sevilla con SEO | Desde 500 € + IVA](https://www.engranadigital.com/servicios/desarrollo-web/): Diseño de páginas web profesionales en Sevilla: rápidas, sin WordPress pesado, con SEO local y técnico incluido. Webs corporativas, landing pages y tiendas online.
 - [Desarrollo de aplicaciones a medida para empresas | Apps de gestión interna](https://www.engranadigital.com/servicios/aplicaciones-a-medida/): Aplicaciones a medida para empresas: turnos, pedidos, inventario, incidencias y facturación. Cambia Excel y WhatsApp por una app hecha para tu equipo.
 - [Desarrollo de SaaS y software por suscripción | Del MVP al lanzamiento](https://www.engranadigital.com/servicios/desarrollo-saas/): Desarrollo de SaaS a medida: plataformas multicliente, marca blanca, panel de administración y pagos por suscripción. Convierte tu idea en un producto.
-- [Automatización de procesos e inteligencia artificial para pymes](https://www.engranadigital.com/servicios/automatizacion-de-procesos/): Automatiza tareas repetitivas, conecta tus herramientas y usa la inteligencia artificial sin disparar costes. Consultoría y desarrollo para pymes.
+- [Automatización de procesos para pymes | Menos tareas repetitivas](https://www.engranadigital.com/servicios/automatizacion-de-procesos/): Automatiza tareas repetitivas y conecta tus herramientas: avisos, informes, facturas y datos que viajan solos. Desde 290 € + IVA.
 - [Gestión de blog y newsletter para empresas | Contenido SEO mensual](https://www.engranadigital.com/servicios/blog-y-newsletter/): Gestión mensual de blog y newsletter para empresas: artículos optimizados para SEO, newsletter con tu marca y difusión en redes. Desde 250 €/mes + IVA.
 - [Auditoría digital y de procesos para empresas | Transformación digital pymes](https://www.engranadigital.com/auditoria-digital-empresas/): Auditoría de procesos, herramientas y costes para pymes: descubre dónde pierde tiempo y dinero tu empresa y recibe una hoja de ruta digital. Desde 390 € + IVA.
-- [Página web para empresarias y profesionales | Marca personal que vende](https://www.engranadigital.com/web-para-empresarias/): Web para empresarias: marca personal, agenda de citas, venta de servicios y SEO local, para empresarias y profesionales que venden con su nombre. Desde 590 € + IVA.
+- [Pack Emprende: web de marca personal y productividad con IA | Desde 500 € + IVA](https://www.engranadigital.com/emprende/): Para quien emprende o vende servicios con su nombre: web de marca personal con agenda, cobros y SEO local, más un asistente de IA que te devuelve horas cada semana. Desde 500 € + IVA.
+- [Inteligencia artificial para empresas: formación e integración, sin miedo | Engrana Digital](https://www.engranadigital.com/inteligencia-artificial/): Te ayudamos a integrar la inteligencia artificial en tu empresa con sentido común: formación práctica para tu equipo, normas de uso seguras e integración en tus herramientas. Desde 600 € + IVA.
 
 ## Blog
 - [¿Cuánto cuesta una app de gestión a medida para tu empresa en 2026?](https://www.engranadigital.com/blog/cuanto-cuesta-una-app-de-gestion/)
@@ -20,7 +21,7 @@
 - [Newsletter para empresas: por qué deberías tener una y cómo empezar en una semana](https://www.engranadigital.com/blog/newsletter-para-empresas/)
 - [Cómo dejar de gestionar turnos y vacaciones por WhatsApp (sin volver loco al equipo)](https://www.engranadigital.com/blog/gestionar-turnos-sin-whatsapp/)
 - [10 señales de que tu empresa necesita una auditoría digital y de procesos](https://www.engranadigital.com/blog/senales-auditoria-digital/)
-- [Página web para empresarias: 9 cosas que debe tener para vender tus servicios](https://www.engranadigital.com/blog/web-para-empresarias-que-debe-tener/)
+- [Web de marca personal: 9 cosas que debe tener para vender tus servicios](https://www.engranadigital.com/blog/web-marca-personal-que-debe-tener/)
 - [Inteligencia artificial en la empresa: cómo usarla sin que el gasto se dispare](https://www.engranadigital.com/blog/controlar-gasto-ia-empresa/)
 
 ## Contacto

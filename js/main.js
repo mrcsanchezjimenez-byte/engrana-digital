@@ -33,7 +33,7 @@ onScroll();
 
 // Aparición suave al entrar en pantalla (escalonada dentro de cada grupo)
 if (!quieto && "IntersectionObserver" in window) {
-  const sel = ".section h2, .section .lead, .demo, .destacado, .card, .plan, .case, .timeline li, .steps li, .service-row, .faq details, .compare-col, .pack, .newsletter, .related";
+  const sel = ".section h2, .section .lead, .demo, .destacado, .ia-card, .member, .card, .plan, .case, .timeline li, .steps li, .service-row, .faq details, .compare-col, .pack, .newsletter, .related";
   const io = new IntersectionObserver((entries) => {
     for (const e of entries) if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
   }, { rootMargin: "0px 0px -8% 0px" });
@@ -122,7 +122,7 @@ if (form) {
       `Presupuesto orientativo: ${val("presupuesto")}`,
       !avisoDiag.hidden ? `Autodiagnóstico: ${diag}/100${q.get("flojas") ? " (flojas: " + q.get("flojas") + ")" : ""}` : "",
     ].filter(Boolean);
-    const texto = `Hola Marcos, me gustaría tener la llamada gratuita. Te dejo el cuestionario:\n\n${lineas.join("\n")}\n\n— ${f.nombre.value}\nContacto: ${f.contacto.value}`;
+    const texto = `Hola, me gustaría tener la llamada gratuita. Os dejo el cuestionario:\n\n${lineas.join("\n")}\n\n— ${f.nombre.value}\nContacto: ${f.contacto.value}`;
     if (via === "whatsapp") {
       window.open(`https://wa.me/${form.dataset.tel}?text=${encodeURIComponent(texto)}`, "_blank", "noopener");
     } else {

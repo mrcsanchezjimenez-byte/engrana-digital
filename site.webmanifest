@@ -4,7 +4,7 @@
   "start_url": "/engrana-digital/",
   "display": "standalone",
   "background_color": "#ffffff",
-  "theme_color": "#070d1a",
+  "theme_color": "#ffffff",
   "icons": [
     {
       "src": "/engrana-digital/img/logo.png",
