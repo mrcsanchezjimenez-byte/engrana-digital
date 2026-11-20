@@ -56,7 +56,7 @@ if (!quieto) {
     const t0 = performance.now() + 300;
     const paso = (t) => {
       const p = Math.min(Math.max((t - t0) / 1400, 0), 1);
-      el.textContent = Math.round(fin * (1 - Math.pow(1 - p, 3)));
+      el.textContent = String(Math.round(fin * (1 - Math.pow(1 - p, 3)))).replace(/\B(?=(\d{3})+(?!\d))/g, ".");
       if (p < 1) requestAnimationFrame(paso);
     };
     el.textContent = "0";
@@ -92,15 +92,26 @@ document.querySelectorAll(".news-form:not([data-mailto])").forEach((f) => {
   f.addEventListener("submit", () => cargando(f.querySelector("button"), "Un momento…"));
 });
 
-// Newsletter sin Substack: abre el correo del visitante con el alta ya escrita
+// Envío real: el servidor (Worker de Cloudflare en /api/formulario) nos lo manda por correo.
+// Si falla (sin conexión, endpoint caído), se recurre al correo o WhatsApp del visitante: nunca se pierde un contacto.
+const enviarFormulario = async (datos) => {
+  try {
+    const ctrl = new AbortController();
+    const t = setTimeout(() => ctrl.abort(), 10000);
+    const r = await fetch("/api/formulario", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(datos), signal: ctrl.signal });
+    clearTimeout(t);
+    return r.ok && (await r.json().catch(() => ({}))).ok === true;
+  } catch { return false; }
+};
+
+// Newsletter sin Substack: alta directa; si no se puede, abre el correo del visitante con el alta escrita
 document.querySelectorAll(".news-form[data-mailto]").forEach((f) => {
-  f.addEventListener("submit", (e) => {
+  f.addEventListener("submit", async (e) => {
     e.preventDefault();
     const email = f.querySelector("input[type=email]");
     if (!email.checkValidity()) { email.reportValidity(); return; }
-    cargando(f.querySelector("button"), "Abriendo tu correo…");
-    location.href = `mailto:${f.dataset.mailto}?subject=${encodeURIComponent("Alta en la newsletter Engranajes")}&body=${encodeURIComponent(`Hola, quiero recibir la newsletter Engranajes en este correo: ${email.value}`)}`;
-    // Por si el visitante no tiene programa de correo: le decimos cómo terminar el alta
+    const btn = f.querySelector("button");
+    cargando(btn, "Apuntándote…");
     let ok = f.parentElement.querySelector(".news-ok");
     if (!ok) {
       ok = document.createElement("p");
@@ -108,11 +119,17 @@ document.querySelectorAll(".news-form[data-mailto]").forEach((f) => {
       ok.setAttribute("role", "status");
       f.after(ok);
     }
+    if (await enviarFormulario({ tipo: "newsletter", email: email.value, web: f.querySelector("[name=web]")?.value || "", pagina: location.pathname })) {
+      ok.innerHTML = `<strong>¡Hecho!</strong> Te hemos apuntado a ${f.dataset.lista || "la newsletter"} con ${email.value.replace(/</g, "&lt;")}. Te llegará el próximo número.`;
+      f.reset();
+      return;
+    }
+    location.href = `mailto:${f.dataset.mailto}?subject=${encodeURIComponent("Alta en la newsletter Engranajes")}&body=${encodeURIComponent(`Hola, quiero recibir la newsletter Engranajes en este correo: ${email.value}`)}`;
     ok.innerHTML = `Se ha abierto tu correo con el alta preparada: solo falta pulsar <strong>Enviar</strong>. Si no se ha abierto, escríbenos a <a href="mailto:${f.dataset.mailto}">${f.dataset.mailto}</a> con el asunto «Alta en Engranajes».`;
   });
 });
 
-// Formulario de contacto: no guarda nada; abre el correo o WhatsApp del visitante con el mensaje ya escrito.
+// Formulario de contacto: lo envía al servidor; si no se puede, abre el correo o WhatsApp del visitante con el mensaje escrito.
 {
 const form = document.getElementById("form-contacto");
 if (form) {
@@ -141,7 +158,7 @@ if (form) {
   let via = "email";
   form.querySelectorAll("[data-via]").forEach((b) => b.addEventListener("click", () => (via = b.dataset.via)));
 
-  form.addEventListener("submit", (e) => {
+  form.addEventListener("submit", async (e) => {
     e.preventDefault();
     const msg = form.querySelector(".form-msg");
     form.querySelector(".form-ok")?.remove();
@@ -169,8 +186,18 @@ if (form) {
       !avisoDiag.hidden ? `Autodiagnóstico: ${diag}/100${q.get("flojas") ? " (flojas: " + q.get("flojas") + ")" : ""}` : "",
     ].filter(Boolean);
     const texto = `Hola, quiero engranar mi empresa y me gustaría tener la llamada gratuita. Os dejo el cuestionario:\n\n${lineas.join("\n")}\n\n— ${f.nombre.value}\nContacto: ${f.contacto.value}`;
-    cargando(e.submitter, via === "whatsapp" ? "Abriendo WhatsApp…" : "Preparando tu mensaje…");
+    cargando(e.submitter, via === "whatsapp" ? "Abriendo WhatsApp…" : "Enviando…");
     const urlWa = `https://wa.me/${form.dataset.tel}?text=${encodeURIComponent(texto)}`;
+    if (via !== "whatsapp" && await enviarFormulario({ tipo: "contacto", asunto: `Llamada: ${tema} · ${f.nombre.value}`, texto, nombre: f.nombre.value, contacto: f.contacto.value, web: f.web?.value || "", pagina: location.pathname + location.search })) {
+      const ok = document.createElement("div");
+      ok.className = "form-ok";
+      ok.setAttribute("role", "status");
+      ok.innerHTML = `<p><strong>Recibido, ${f.nombre.value.replace(/</g, "&lt;").split(" ")[0]}.</strong> Revisamos tus respuestas y te escribimos en menos de 24 horas laborables para fijar la llamada.</p><p>¿Prefieres adelantarlo? <a href="${urlWa}" target="_blank" rel="noopener">Escríbenos por WhatsApp</a>.</p>`;
+      msg.after(ok);
+      form.querySelectorAll("input,select,textarea,button").forEach((el) => (el.disabled = true));
+      ok.scrollIntoView({ behavior: "smooth", block: "center" });
+      return;
+    }
     if (via === "whatsapp") {
       window.open(urlWa, "_blank", "noopener");
     } else {
@@ -194,3 +221,28 @@ if (form) {
   });
 }
 }
+
+// Ejemplos: muestra de la voz del agente de voz (se descarga solo al pulsar)
+document.querySelectorAll(".btn-audio").forEach((b) => {
+  let audio;
+  const demo = b.closest(".demo");
+  const dur = b.querySelector(".ba-dur");
+  const total = dur.textContent;
+  const t = b.querySelector(".ba-t");
+  const mmss = (s) => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, "0")}`;
+  const estado = (sonando) => {
+    b.setAttribute("aria-pressed", sonando);
+    t.textContent = sonando ? "Pausar" : "Escuchar la voz";
+    demo?.classList.toggle("sonando", sonando);
+  };
+  b.addEventListener("click", () => {
+    if (!audio) {
+      audio = new Audio((document.documentElement.dataset.base || "") + b.dataset.audio);
+      audio.addEventListener("play", () => estado(true));
+      audio.addEventListener("pause", () => estado(false));
+      audio.addEventListener("ended", () => { estado(false); dur.textContent = total; });
+      audio.addEventListener("timeupdate", () => { if (audio.duration) dur.textContent = mmss(audio.duration - audio.currentTime); });
+    }
+    audio.paused ? audio.play().catch(() => estado(false)) : audio.pause();
+  });
+});
