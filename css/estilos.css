@@ -757,9 +757,10 @@ nav ul{gap:22px}
 .srv-blocks .card > *{min-width:0}
 .srv-blocks .card .tag{position:absolute;top:24px;right:24px;margin:0}
 .srv-items{list-style:none;padding:0;margin:1.1rem 0 0;border-top:1px solid var(--line);align-self:start}
-.srv-items li{display:flex;justify-content:space-between;align-items:baseline;gap:10px;padding:9px 0;border-bottom:1px solid var(--line);font-size:.92rem}
+.srv-items li{display:flex;justify-content:space-between;align-items:baseline;gap:10px;border-bottom:1px solid var(--line);font-size:.92rem}
 .srv-items li:last-child{border-bottom:0}
-.srv-items a{color:var(--ink);font-weight:600;text-decoration:none}
+/* el enlace ocupa toda la fila para que sea fácil de tocar en el móvil */
+.srv-items a{flex:1;padding:9px 0;color:var(--ink);font-weight:600;text-decoration:none}
 .srv-items a:hover{color:var(--accent-2)}
 .srv-items small{color:var(--muted);white-space:nowrap;font-size:.8rem}
 .auto-grid .card{scroll-margin-top:100px}
@@ -773,6 +774,15 @@ nav ul{gap:22px}
 .news-ok a{color:var(--accent-2);text-decoration:underline}
 /* En móvil, el botón flotante de WhatsApp no tapa el cuestionario (ya tiene su propio botón de WhatsApp) */
 @media (max-width:700px){body:has(#form-contacto) .wa-float{display:none}}
+
+/* Móvil: el botón flotante de WhatsApp no tapa los enlaces legales del pie,
+   y la miga de pan no se parte en dos líneas (el título largo se corta con "…"). */
+@media (max-width:700px){
+  .site-footer{padding-bottom:96px}
+  .crumbs ol{flex-wrap:nowrap}
+  .crumbs li{flex:none;white-space:nowrap}
+  .crumbs li:last-child{flex:1 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis}
+}
 
 /* ------------------------------------------------------------ iconos y apoyos visuales */
 .ico{display:inline-grid;place-items:center;width:38px;height:38px;flex:none}
@@ -809,3 +819,13 @@ nav ul{gap:22px}
 @media (max-width:560px){.flujo{grid-template-columns:1fr;gap:4px}.flujo::before{display:none}.flujo li{flex-direction:row;gap:14px;text-align:left}.flujo .ico-lg{margin:0}}
 .case-foto img[src*="movil"]{object-fit:contain;object-position:center;padding:12px 0}
 .split .flujo{margin-top:0}
+
+/* Paginador del blog */
+.pager{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:.6rem 1rem;margin-top:2.6rem}
+.pager-nums{display:flex;gap:.4rem}
+.pager-n,.pager-step{display:inline-flex;align-items:center;justify-content:center;min-height:2.6rem;border-radius:999px;font-weight:600;text-decoration:none;color:var(--ink);transition:box-shadow .2s var(--ease),background .2s var(--ease)}
+.pager-n{min-width:2.6rem;padding:0 .6rem;box-shadow:inset 0 0 0 1.5px var(--line)}
+.pager-step{padding:0 1.1rem;box-shadow:inset 0 0 0 1.5px #cfd6e0}
+a.pager-n:hover,a.pager-step:hover{box-shadow:inset 0 0 0 1.5px var(--ink);background:rgba(11,19,36,.03)}
+.pager-n.is-current{background:var(--ink);color:#fff;box-shadow:none}
+.pager-step.is-off{opacity:.4}
