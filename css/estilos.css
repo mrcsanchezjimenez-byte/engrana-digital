@@ -1070,3 +1070,7 @@ a.pager-n:hover,a.pager-step:hover{box-shadow:inset 0 0 0 1.5px var(--ink);backg
 .ba-nota{margin:0;max-width:46ch;font-size:.86rem;line-height:1.5;color:var(--muted)}
 .con-audio .ui-wave b{animation-play-state:paused}
 .con-audio.sonando .ui-wave b{animation-play-state:running}
+/* portada: sello de "datos reales" bajo las cifras */
+.stats-src{display:flex;align-items:center;flex-wrap:wrap;gap:6px 10px;font-size:.88rem;color:var(--text);margin:1rem 0 0}
+.stats-src a{color:var(--ink);font-weight:600;text-decoration:underline;text-underline-offset:3px}
+.real-badge{display:inline-flex;align-items:center;gap:4px;padding:4px 11px;border-radius:999px;background:#e6f6ee;border:1px solid #bfe8d2;color:#11784a;font-weight:700;font-size:.8rem;letter-spacing:.01em}
