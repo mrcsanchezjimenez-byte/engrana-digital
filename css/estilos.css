@@ -1074,3 +1074,18 @@ a.pager-n:hover,a.pager-step:hover{box-shadow:inset 0 0 0 1.5px var(--ink);backg
 .stats-src{display:flex;align-items:center;flex-wrap:wrap;gap:6px 10px;font-size:.88rem;color:var(--text);margin:1rem 0 0}
 .stats-src a{color:var(--ink);font-weight:600;text-decoration:underline;text-underline-offset:3px}
 .real-badge{display:inline-flex;align-items:center;gap:4px;padding:4px 11px;border-radius:999px;background:#e6f6ee;border:1px solid #bfe8d2;color:#11784a;font-weight:700;font-size:.8rem;letter-spacing:.01em}
+/* portada: maqueta clara, a juego con los ejemplos (nov. 2026) */
+.mock{background:#fff;border:1px solid #dde2ea;backdrop-filter:none;box-shadow:0 1px 2px rgba(16,24,40,.05),0 40px 80px -32px rgba(16,24,40,.38)}
+.mock .mock-bar{gap:7px;padding:10px 14px;background:#f3f5f8;border-bottom:1px solid #e3e7ee;color:#5b6576}
+.mock .mock-bar i{background:#ff5f57}.mock .mock-bar i:nth-child(2){background:#febc2e}.mock .mock-bar i:nth-child(3){background:#28c840}
+.mock .mock-bar span{display:flex;align-items:center;justify-content:center;gap:6px;flex:1;margin:0 40px 0 10px;padding:4px 12px;background:#fff;border:1px solid #e3e7ee;border-radius:7px;font-size:.72rem}
+.mock .mock-bar .ic{width:11px;height:11px;color:#7b8595}
+.mock-kpis div{background:#fff;border:1px solid #e8ebf1;box-shadow:0 1px 2px rgba(16,24,40,.04)}
+.mock-kpis small,.mock-chart small{color:#7b8595}
+.mock-kpis b{color:var(--ink)}
+.mock-kpis em{color:#7b8595}
+.mock-kpis em.up{color:#11784a}
+.mock-chart{background:#fbfcfd;border:1px solid #e8ebf1}
+.mock-chart .line{stroke:#14a39a}
+.mock-rows li{color:#4a5466}
+.mock-rows i{background:#eef1f5}
