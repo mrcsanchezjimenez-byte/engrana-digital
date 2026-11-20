@@ -69,6 +69,36 @@ document.querySelectorAll(".card, .service-row").forEach((el) => {
   });
 });
 
+// Logo en las cargas: capturas de los casos (el logo se ve hasta que llega la imagen)
+document.querySelectorAll(".shot-img img").forEach((img) => {
+  const fin = () => img.closest("figure").classList.add("cargada");
+  if (img.complete) fin(); else { img.addEventListener("load", fin, { once: true }); img.addEventListener("error", fin, { once: true }); }
+});
+// Botones: logo y "Preparando…" mientras se abre el correo o WhatsApp
+const cargando = (btn, txt) => {
+  const t = btn?.querySelector(".btn-txt");
+  if (!t || btn.classList.contains("cargando")) return;
+  const antes = t.textContent;
+  btn.classList.add("cargando");
+  t.textContent = txt;
+  setTimeout(() => { btn.classList.remove("cargando"); t.textContent = antes; }, 2500);
+};
+// Newsletter con Substack: el alta se abre en otra pestaña
+document.querySelectorAll(".news-form:not([data-mailto])").forEach((f) => {
+  f.addEventListener("submit", () => cargando(f.querySelector("button"), "Un momento…"));
+});
+
+// Newsletter sin Substack: abre el correo del visitante con el alta ya escrita
+document.querySelectorAll(".news-form[data-mailto]").forEach((f) => {
+  f.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const email = f.querySelector("input[type=email]");
+    if (!email.checkValidity()) { email.reportValidity(); return; }
+    cargando(f.querySelector("button"), "Abriendo tu correo…");
+    location.href = `mailto:${f.dataset.mailto}?subject=${encodeURIComponent("Alta en la newsletter Engranajes")}&body=${encodeURIComponent(`Hola, quiero recibir la newsletter Engranajes en este correo: ${email.value}`)}`;
+  });
+});
+
 // Formulario de contacto: no guarda nada; abre el correo o WhatsApp del visitante con el mensaje ya escrito.
 {
 const form = document.getElementById("form-contacto");
@@ -122,7 +152,8 @@ if (form) {
       `Presupuesto orientativo: ${val("presupuesto")}`,
       !avisoDiag.hidden ? `Autodiagnóstico: ${diag}/100${q.get("flojas") ? " (flojas: " + q.get("flojas") + ")" : ""}` : "",
     ].filter(Boolean);
-    const texto = `Hola, me gustaría tener la llamada gratuita. Os dejo el cuestionario:\n\n${lineas.join("\n")}\n\n— ${f.nombre.value}\nContacto: ${f.contacto.value}`;
+    const texto = `Hola, quiero engranar mi empresa y me gustaría tener la llamada gratuita. Os dejo el cuestionario:\n\n${lineas.join("\n")}\n\n— ${f.nombre.value}\nContacto: ${f.contacto.value}`;
+    cargando(e.submitter, via === "whatsapp" ? "Abriendo WhatsApp…" : "Preparando tu mensaje…");
     if (via === "whatsapp") {
       window.open(`https://wa.me/${form.dataset.tel}?text=${encodeURIComponent(texto)}`, "_blank", "noopener");
     } else {

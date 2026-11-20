@@ -46,6 +46,13 @@ if (form) {
       : nota < 70 ? ["Vas por buen camino", "Tienes una base, pero hay fugas de tiempo y oportunidades que se escapan."]
       : ["Tu empresa está bien engranada", "Estás por delante de la mayoría. Ahora se trata de afinar y crecer."];
 
+    // Un instante con el logo "calculando" antes de enseñar el resultado
+    const espera = document.querySelector(".diag-loading");
+    const lento = !matchMedia("(prefers-reduced-motion: reduce)").matches;
+    out.hidden = true; out.classList.remove("show");
+    if (espera && lento) { espera.hidden = false; espera.scrollIntoView({ behavior: "smooth", block: "center" }); }
+    setTimeout(() => {
+    if (espera) espera.hidden = true;
     out.innerHTML = `
       <div class="diag-score">
         <div class="ring" style="--p:${nota}"><span>${nota}<small>/100</small></span></div>
@@ -55,11 +62,12 @@ if (form) {
       ${debiles.length ? `<h3>Por dónde empezaríamos</h3><div class="diag-recs">${debiles.map((a) => `<a class="card" href="${B}${areas[a].servicio[0]}"><p class="case-sector">${areas[a].nombre}</p><p>${areas[a].consejo}</p><span class="more">${areas[a].servicio[1]} →</span></a>`).join("")}</div>` : ""}
       <div class="hero-actions">
         <a class="btn" href="${B}/contacto/?asunto=auditoria&diag=${nota}&flojas=${encodeURIComponent(debiles.map((a) => areas[a].nombre).join(", "))}">Comentar mi resultado (gratis)</a>
-        <a class="btn btn-ghost" target="_blank" rel="noopener" href="https://wa.me/${form.dataset.tel}?text=${encodeURIComponent(`Hola, he hecho el autodiagnóstico y he sacado ${nota}/100. Áreas más flojas: ${debiles.map((a) => areas[a].nombre).join(" y ") || "ninguna"}. ¿Lo hablamos?`)}">Enviarlo por WhatsApp</a>
+        <a class="btn btn-ghost" target="_blank" rel="noopener" href="https://wa.me/${form.dataset.tel}?text=${encodeURIComponent(`Hola, quiero engranar mi empresa. He hecho el autodiagnóstico y he sacado ${nota}/100. Áreas más flojas: ${debiles.map((a) => areas[a].nombre).join(" y ") || "ninguna"}. ¿Lo hablamos?`)}">Enviarlo por WhatsApp</a>
       </div>`;
     out.hidden = false;
     requestAnimationFrame(() => out.classList.add("show"));
     out.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, lento ? 1100 : 0);
   });
   progreso();
 }

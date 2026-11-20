@@ -7,7 +7,7 @@
 - [Diseño y desarrollo de páginas web en Sevilla con SEO | Desde 500 € + IVA](https://www.engranadigital.com/servicios/desarrollo-web/): Páginas web profesionales en Sevilla: rápidas, sin WordPress pesado y con SEO local y técnico incluido. Webs corporativas, landings y tiendas.
 - [Desarrollo de aplicaciones a medida para empresas | Apps de gestión interna](https://www.engranadigital.com/servicios/aplicaciones-a-medida/): Aplicaciones a medida para empresas: turnos, pedidos, inventario, incidencias y facturación. Cambia Excel y WhatsApp por una app hecha para tu equipo.
 - [Desarrollo de SaaS y software por suscripción | Del MVP al lanzamiento](https://www.engranadigital.com/servicios/desarrollo-saas/): Desarrollo de SaaS a medida: plataformas multicliente, marca blanca, panel de administración y pagos por suscripción. Convierte tu idea en un producto.
-- [Automatización de procesos para pymes | Menos tareas repetitivas](https://www.engranadigital.com/servicios/automatizacion-de-procesos/): Automatiza tareas repetitivas y conecta tus herramientas: avisos, informes, facturas y datos que viajan solos. Desde 290 € + IVA.
+- [Automatización para pymes: procesos, redes sociales, WhatsApp y llamadas](https://www.engranadigital.com/servicios/automatizacion-de-procesos/): Automatiza tareas repetitivas, publicaciones en redes sociales, respuestas de WhatsApp y atención de llamadas. Que tu negocio conteste siempre. Desde 290 € + IVA.
 - [Gestión de blog y newsletter para empresas | Contenido SEO mensual](https://www.engranadigital.com/servicios/blog-y-newsletter/): Gestión mensual de blog y newsletter para empresas: artículos optimizados para SEO, newsletter con tu marca y difusión en redes. Desde 250 €/mes + IVA.
 - [Auditoría digital y de procesos para empresas y pymes](https://www.engranadigital.com/auditoria-digital-empresas/): Auditoría de procesos, herramientas y costes para pymes: descubre dónde pierde tiempo y dinero tu empresa y recibe una hoja de ruta digital. Desde 390 € + IVA.
 - [Pack Emprende: web de marca personal + productividad con IA](https://www.engranadigital.com/emprende/): Para quien emprende: web de marca personal con agenda, cobros y SEO local, y un asistente de IA que te devuelve horas cada semana. Desde 500 € + IVA.
@@ -28,4 +28,4 @@
 
 ## Contacto
 - Correo: hola@engranadigital.com
-- Newsletter: https://engranadigital.substack.com
+- Newsletter: https://www.engranadigital.com/newsletter/
